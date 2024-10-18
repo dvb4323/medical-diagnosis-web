@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Test Results</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      input[type="number"] {
+        width: 100px;
+      }
+      input[type="submit"] {
+        padding: 10px 20px;
+        margin-top: 20px;
+      }
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Kết quả xét nghiệm</h1>
+
+    <form id="test-form">
+      <table>
+        <thead>
+          <tr>
+            <th>Yêu cầu Xét nghiệm</th>
+            <th>Kết quả XN</th>
+            <th>Đơn vị</th>
+            <th>Khoảng tham chiếu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Đường Ure</td>
+            <td>
+              <input type="number" step="0.01" name="duong_ure" required />
+            </td>
+            <td>mmol/L</td>
+            <td>1.70 - 8.30</td>
+          </tr>
+          <tr>
+            <td>Đường Glucose</td>
+            <td>
+              <input type="number" step="0.01" name="duong_glucose" required />
+            </td>
+            <td>mmol/L</td>
+            <td>4.10 - 6.70</td>
+          </tr>
+          <tr>
+            <td>Đường Creatinine</td>
+            <td>
+              <input
+                type="number"
+                step="0.01"
+                name="duong_creatinine"
+                required
+              />
+            </td>
+            <td>µmol/L</td>
+            <td>62.0 - 106.0</td>
+          </tr>
+          <tr>
+            <td>Đường Acid Uric</td>
+            <td>
+              <input
+                type="number"
+                step="0.01"
+                name="duong_acid_uric"
+                required
+              />
+            </td>
+            <td>µmol/L</td>
+            <td>180.0 - 420.0</td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+
+      <input type="submit" value="Chẩn đoán" />
+    </form>
+
+    <!-- Div to display result -->
+    <div id="result"></div>
+
+    <script>
+      document
+        .getElementById("test-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent form from submitting
+
+          // Lấy các giá trị từ form
+          const duongUre = parseFloat(
+            document.querySelector('input[name="duong_ure"]').value
+          );
+          const duongGlucose = parseFloat(
+            document.querySelector('input[name="duong_glucose"]').value
+          );
+          const duongCreatinine = parseFloat(
+            document.querySelector('input[name="duong_creatinine"]').value
+          );
+          const duongAcidUric = parseFloat(
+            document.querySelector('input[name="duong_acid_uric"]').value
+          );
+
+          let result = ""; // Store diagnostic result
+
+          // Điều kiện chẩn đoán
+          if (duongUre < 1.7 || duongUre > 8.3) {
+            result += "Chỉ số Ure bất thường. ";
+          } else {
+            result += "Chỉ số Ure bình thường. ";
+          }
+
+          if (duongGlucose < 4.1 || duongGlucose > 6.7) {
+            result += "Chỉ số Glucose bất thường. ";
+          } else {
+            result += "Chỉ số Glucose bình thường. ";
+          }
+
+          if (duongCreatinine < 62 || duongCreatinine > 106) {
+            result += "Chỉ số Creatinine bất thường. ";
+          } else {
+            result += "Chỉ số Creatinine bình thường. ";
+          }
+
+          if (duongAcidUric < 180 || duongAcidUric > 420) {
+            result += "Chỉ số Acid Uric bất thường. ";
+          } else {
+            result += "Chỉ số Acid Uric bình thường. ";
+          }
+
+          // Hiển thị kết quả chẩn đoán
+          const resultDiv = document.getElementById("result");
+          resultDiv.innerText = result; // Insert the result text into the div
+        });
+    </script>
+  </body>
+</html>
